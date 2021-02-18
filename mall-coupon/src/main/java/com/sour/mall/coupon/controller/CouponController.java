@@ -30,6 +30,21 @@ public class CouponController {
     @Autowired
     private ICouponService couponService;
 
+
+    /**
+     *  列表 - 会员拥有的优惠券
+     * @path coupon/coupon/couponListOfMember
+     *
+     * @author xgl
+     * @date 2021/2/18 13:03
+     **/
+    @RequestMapping("/couponListOfMember")
+    public R couponListOfMember() {
+        CouponEntity couponEntity = new CouponEntity();
+        couponEntity.setCouponName("满100减10");
+        return R.ok().put("coupons", Arrays.asList(couponEntity));
+    }
+
     /**
      * 列表
      */
