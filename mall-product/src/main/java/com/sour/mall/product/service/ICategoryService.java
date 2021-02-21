@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.sour.mall.common.utils.PageUtils;
 import com.sour.mall.product.entity.CategoryEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +17,15 @@ import java.util.Map;
 public interface ICategoryService extends IService<CategoryEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 列表 - 所有分类以及子分类, 已树形结构组装起来
+     *
+     * @return 分类以及子分类
+     *
+     * @author xgl
+     * @date 2021/2/21 20:07
+     **/
+    List<CategoryEntity> listTree();
 }
 

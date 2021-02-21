@@ -1,6 +1,7 @@
 package com.sour.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +31,19 @@ public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
 
-    /**
-     * 列表
-     */
-    @RequestMapping("/list")
-    // @RequiresPermissions("product:category:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = categoryService.queryPage(params);
+   /**
+    * 列表 - 所有分类以及子分类, 已树形结构组装起来
+    * @path product/category/list/tree
+    *
+    * @author xgl
+    * @date 2021/2/21 20:05
+    **/
+    @RequestMapping("/list/tree")
+    public R list(){
 
-        return R.ok().put("page", page);
+        List<CategoryEntity> list = categoryService.listTree();
+
+        return R.ok().put("page", list);
     }
 
 
