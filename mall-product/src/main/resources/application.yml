@@ -6,6 +6,11 @@ spring:
     nacos:
       discovery:
         server-addr=: 127.0.0.1:8848 # nacos注册中心地址
+    alicloud:
+      access-key: LTAI4G5WZfgz5UT6b4o6f7FL
+      secret-key: L78uXRhwrqoT3qQ9QQGxzsiKeCsrDX
+      oss:
+        endpoint: oss-cn-guangzhou.aliyuncs.com
   datasource:
     username: root
     password: root
@@ -19,4 +24,11 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto # 主键自增
-
+      # 逻辑删除配置
+      logic-delete-field: flag  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+logging:
+  level:
+    # 显示sql语句
+    com.sour.mall.product: debug

@@ -27,5 +27,14 @@ public interface ICategoryService extends IService<CategoryEntity> {
      * @date 2021/2/21 20:07
      **/
     List<CategoryEntity> listTree();
+
+    /**
+     * 删除 - 通过多个id删除菜单
+     *  带校验
+     *
+     * @author xgl
+     * @date 2021/2/28 11:53
+     **/
+    void removeMenuByIds(List<Long> ids);
 }
 

@@ -17,6 +17,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *              1, 启动类配置 @MapperScan
  *              2, 告诉sql映射文件在哪里 (在yml里面)
  *
+ *  2, 配置逻辑删除
+ *      1, 配置全局逻辑删除规则(yml)
+ *      2, 配置逻辑删除组件删除 (bean) (3.1版本以上可以省略这步)
+ *      3, 实体类加@TableLogic注解
+ *
  */
 @MapperScan("com.sour.mall.product.dao")
 @EnableDiscoveryClient
