@@ -12,3 +12,39 @@ spring:
           uri: https://www.qq.com
           predicates:
             - Query=url,qq
+
+        # 需要先匹配精确的, 在匹配模糊的  如: /api/product/**,  /api/**
+
+        #  ----------------  商品服务 START --------------------- #
+        - id: product_route
+          uri: lb://mall-product  # 负载均衡, 将请求发给这个微服务
+          predicates:
+            - Path=/api/product/**  # 前端项目. 都带 /api
+          filters:
+          - RewritePath=/api/(?<segment>/?.*),/$\{segment}
+        #  =================  商品服务 END =========================== #
+
+
+        #  ----------------  第三方服务 START --------------------- #
+        - id: third_party_route
+          uri: lb://mall-third-party  # 负载均衡, 将请求发给这个微服务
+          predicates:
+            - Path=/api/thirdparty/**  # 前端项目. 都带 /api
+          filters:
+            - RewritePath=/api/thirdparty/(?<segment>/?.*),/$\{segment}
+        #  =================  第三方服务 END =========================== #
+
+
+        #  ----------------  管理 START --------------------- #
+        - id: admin_route
+          uri: lb://renren-fast  # 负载均衡, 将请求发给这个微服务
+          predicates:
+            - Path=/api/**  # 前端项目. 都带 /api
+          filters:
+            # 将 /api/xxx 转成 /renren-fast/***
+            # 如: http://localhost:88/api/captcha.jpg
+            #  -> http://localhost:8080/renren-fast/captcha.jpg
+            - RewritePath=/api/(?<segment>/?.*),/renren-fast/$\{segment}
+         #  =================  管理 END =========================== #
+
+
