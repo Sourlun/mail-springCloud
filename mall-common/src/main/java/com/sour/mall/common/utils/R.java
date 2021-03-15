@@ -8,7 +8,9 @@
 
 package com.sour.mall.common.utils;
 
+import com.sour.mall.common.exception.BizCodeEnume;
 import org.apache.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,6 +57,26 @@ public class R extends HashMap<String, Object> {
 	
 	public static R ok() {
 		return new R();
+	}
+
+	/**
+	 * 表单校验不通过
+	 * @param result 结果
+	 */
+	public static R notValid(BindingResult result) {
+		R r = new R();
+		Map<String, String> errorsMap = new HashMap<>();
+		result.getFieldErrors().forEach( item -> {
+			// 每个字段的默认信息提示, 有配置的则用配置信息
+			String message = item.getDefaultMessage();
+			// 字段名
+			String field = item.getField();
+			errorsMap.put(field, message);
+		});
+		r.put("data", errorsMap);
+		r.put("code", BizCodeEnume.VAILD_EXCEPTION.getCode());
+		r.put("msg", BizCodeEnume.VAILD_EXCEPTION.getMsg());
+		return r;
 	}
 
 	@Override

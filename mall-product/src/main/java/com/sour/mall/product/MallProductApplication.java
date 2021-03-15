@@ -22,6 +22,27 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *      2, 配置逻辑删除组件删除 (bean) (3.1版本以上可以省略这步)
  *      3, 实体类加@TableLogic注解
  *
+ *  3, JSR303校验  (  示例: BrandController.save()  )
+ *      1, 给bean添加校验注解  javax.validation.constraints, 并定义message提示
+ *      2, 开启校验功能: 在保存controller接口添加@Valid注解
+ *      3, 校验不通过会返回400错误码
+ *      4, 在校验参数后面加一个参数: BindingResult, 可以获取到校验的结果
+ *
+ *  4, 同一的异常处理
+ *      1, 创建MallControllerAdvice这个类专门来处理controller异常
+ *      2, 在这个类上加@RestControllerAdvice注解, 并指明哪里的异常需要处理
+ *      3, 分组校验
+ *          1, 添加接口AddGroup, UpdateGroup用来标识
+ *          2, 在entity里面的字段设置分组: groups = {AddGroup.class, UpdateGroup.class})
+ *          3, 在controller的接口把@Valid改成@Validated, 并指定校验分组
+ *          4, 没有指定分组的字段, 校验不生效
+ *      4, 自定义校验   ( 例子: BrandEntity.showStatus  -> ListValue -> Constraint -> ConstraintValidator -> ListValueConstraintValidator  )
+ *          1, 编写一个自定义的校验注解
+ *          2, 编写一个自定义的校验器
+ *          3, 关联自定义校验器和自定义校验注解
+ *
+ *
+ *
  */
 @MapperScan("com.sour.mall.product.dao")
 @EnableDiscoveryClient

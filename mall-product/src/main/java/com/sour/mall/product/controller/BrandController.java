@@ -3,7 +3,10 @@ package com.sour.mall.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.sour.mall.common.valid.AddGroup;
+import com.sour.mall.common.valid.UpdateGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +17,6 @@ import com.sour.mall.product.entity.BrandEntity;
 import com.sour.mall.product.service.IBrandService;
 import com.sour.mall.common.utils.PageUtils;
 import com.sour.mall.common.utils.R;
-
 
 
 /**
@@ -53,14 +55,36 @@ public class BrandController {
         return R.ok().put("brand", brand);
     }
 
+//    /**
+//     * 保存  (手动处理校验异常)
+//     * @Valid 告诉这个entity需要校验
+//     * @param result BindingResult获取校验结果
+//     */
+//    @RequestMapping("/save")
+//    // @RequiresPermissions("product:brand:save")
+//    public R save(@Valid @RequestBody BrandEntity brand, BindingResult result){
+//        // 校验不通过
+//        if (result.hasErrors()) {
+//            return R.notValid(result);
+//        }
+//        try {
+//            brandService.save(brand);
+//            return R.ok();
+//        } catch ( Exception e ) {
+//            e.printStackTrace();
+//            return R.error(e.getMessage());
+//        }
+//    }
+
+
     /**
      * 保存
+     * @Valid 告诉这个entity需要校验
      */
     @RequestMapping("/save")
     // @RequiresPermissions("product:brand:save")
-    public R save(@RequestBody BrandEntity brand){
-		brandService.save(brand);
-
+    public R save(@Validated(value = AddGroup.class) @RequestBody BrandEntity brand){
+        brandService.save(brand);
         return R.ok();
     }
 
@@ -69,7 +93,7 @@ public class BrandController {
      */
     @RequestMapping("/update")
     // @RequiresPermissions("product:brand:update")
-    public R update(@RequestBody BrandEntity brand){
+    public R update(@Validated(UpdateGroup.class) @RequestBody BrandEntity brand){
 		brandService.updateById(brand);
 
         return R.ok();
