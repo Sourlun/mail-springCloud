@@ -16,6 +16,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *          2, 相关信息
  *              1, 启动类配置 @MapperScan
  *              2, 告诉sql映射文件在哪里 (在yml里面)
+ *          3, 配置分页:
+ *              1, 在 MyBatisConfig 有说明
  *
  *  2, 配置逻辑删除
  *      1, 配置全局逻辑删除规则(yml)

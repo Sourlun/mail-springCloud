@@ -4,8 +4,7 @@ import com.sun.deploy.ui.DialogTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -17,10 +16,14 @@ import com.sour.mall.common.utils.Query;
 import com.sour.mall.product.dao.ICategoryDao;
 import com.sour.mall.product.entity.CategoryEntity;
 import com.sour.mall.product.service.ICategoryService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<ICategoryDao, CategoryEntity> implements ICategoryService {
+
+    @Autowired
+    private CategoryBrandRelationServiceImpl categoryBrandRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -57,6 +60,39 @@ public class CategoryServiceImpl extends ServiceImpl<ICategoryDao, CategoryEntit
     public void removeMenuByIds(List<Long> ids) {
         // TODO 1, 检查当前删除的菜单是否在其他地方引用
         baseMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public Long[] findCatelogPath(Long catelogId) {
+        List<Long> parentPath = findParentPath(catelogId, new ArrayList<>());
+        return (Long[]) parentPath.toArray(new Long[parentPath.size()]);
+    }
+
+    @Override
+    @Transactional
+    public void updateCascade(CategoryEntity category) {
+        updateById(category);
+        // 级联更新
+        categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
+    }
+
+    /**
+     * 递归获取父id
+     *
+     * @author xgl
+     * @date 2021/3/28 14:39
+     **/
+    private List<Long> findParentPath(Long catelogId, List<Long> paths) {
+        // 1, 当前
+        CategoryEntity categoryEntity = getById(catelogId);
+        paths.add(catelogId);
+        // 2, 查找父
+        if ( categoryEntity.getParentCid() != 0 ) {
+            findParentPath(categoryEntity.getParentCid(), paths);
+        }
+        // 3, 当前是最高节点 (先倒序)
+        Collections.reverse(paths);
+        return paths;
     }
 
     /**

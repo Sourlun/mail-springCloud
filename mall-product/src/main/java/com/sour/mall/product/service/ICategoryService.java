@@ -36,5 +36,21 @@ public interface ICategoryService extends IService<CategoryEntity> {
      * @date 2021/2/28 11:53
      **/
     void removeMenuByIds(List<Long> ids);
+
+    /**
+     * 获取产品CatelogId完整路径
+     *
+     * @author xgl
+     * @date 2021/3/28 14:34
+     **/
+    Long[] findCatelogPath(Long catelogId);
+
+    /**
+     * 关联更新
+     *
+     * @author xgl
+     * @date 2021/3/28 16:49
+     **/
+    void updateCascade(CategoryEntity category);
 }
 

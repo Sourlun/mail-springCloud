@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 
  * @author SourLun
  * @email 1141837289@qq.com
- * @date 2021-02-17 16:11:40
+ * @date 2021-03-27 15:57:53
  */
 @Mapper
 public interface IAttrAttrgroupRelationDao extends BaseMapper<AttrAttrgroupRelationEntity> {

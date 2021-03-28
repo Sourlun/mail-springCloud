@@ -41,6 +41,7 @@ public class MallControllerAdvice {
      **/
     @ExceptionHandler(value = Throwable.class)
     public R handleExcetption( Throwable e ) {
+        e.printStackTrace();
         log.error(BizCodeEnume.UNKNOWN_EXCEPTION.getMsg() + "{}, 异常类型{}", e.getMessage(), e.getClass());
         return R.error(BizCodeEnume.UNKNOWN_EXCEPTION.getCode(), BizCodeEnume.UNKNOWN_EXCEPTION.getMsg());
     }

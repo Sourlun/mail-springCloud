@@ -3,8 +3,10 @@ package com.sour.mall.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sour.mall.common.valid.AddGroup;
 import com.sour.mall.common.valid.UpdateGroup;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,8 +40,16 @@ public class BrandController {
     @RequestMapping("/list")
     // @RequiresPermissions("product:brand:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = brandService.queryPage(params);
 
+        QueryWrapper<BrandEntity> wrapper = new QueryWrapper<>();
+
+        // 获取 key 用来模糊查询
+        String key = (String) params.get("key");
+        if ( StringUtils.isNotEmpty(key) ) {
+            wrapper.eq("brand_id", key).or().like("name", key).or().like("descript", key);
+        }
+
+        PageUtils page = brandService.queryPage(params, wrapper);
         return R.ok().put("page", page);
     }
 
@@ -94,7 +104,7 @@ public class BrandController {
     @RequestMapping("/update")
     // @RequiresPermissions("product:brand:update")
     public R update(@Validated(UpdateGroup.class) @RequestBody BrandEntity brand){
-		brandService.updateById(brand);
+		brandService.updateDetail(brand);
 
         return R.ok();
     }

@@ -1,19 +1,25 @@
 package com.sour.mall.product;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.google.common.collect.Lists;
 import com.sour.mall.product.entity.BrandEntity;
 import com.sour.mall.product.service.IBrandService;
+import com.sour.mall.product.service.ICategoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+@Slf4j
 @SpringBootTest
 class MallProductApplicationTests {
 
     @Autowired
     IBrandService brandService;
+    @Autowired
+    ICategoryService categoryService;
 
 //    @Autowired
 //    OSSClient ossClient;
@@ -96,4 +102,11 @@ class MallProductApplicationTests {
 //        ossClient.shutdown();
 //        System.out.println("上传成功!");
 //    }
+
+
+    @Test
+    public void categoryIdPath() {
+        Long[] catelogPath = categoryService.findCatelogPath(165l);
+        log.info(String.valueOf(Lists.asList(Long.class, catelogPath)));
+    }
 }
