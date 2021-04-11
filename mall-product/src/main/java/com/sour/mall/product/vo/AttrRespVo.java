@@ -23,5 +23,15 @@ public class AttrRespVo extends AttrEntity {
      */
     private String groupName;
 
+    /**
+     * 所属分类全路径
+     */
+    private Long[] catelogPath;
+
+    /**
+     * 属性分组id
+     */
+    private Long attrGroupId;
+
 
 }

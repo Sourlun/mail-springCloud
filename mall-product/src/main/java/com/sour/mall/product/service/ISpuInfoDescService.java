@@ -16,5 +16,13 @@ import java.util.Map;
 public interface ISpuInfoDescService extends IService<SpuInfoDescEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 保存spu描述图片
+     *
+     * @author xgl
+     * @date 2021/4/5 11:40
+     **/
+    void saveSpuInfoDesc(SpuInfoDescEntity spuInfoDescEntity);
 }
 

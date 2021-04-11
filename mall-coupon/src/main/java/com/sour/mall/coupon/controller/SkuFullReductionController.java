@@ -3,12 +3,9 @@ package com.sour.mall.coupon.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.sour.mall.common.to.SkuReductionTo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.sour.mall.coupon.entity.SkuFullReductionEntity;
 import com.sour.mall.coupon.service.ISkuFullReductionService;
@@ -29,6 +26,16 @@ import com.sour.mall.common.utils.R;
 public class SkuFullReductionController {
     @Autowired
     private ISkuFullReductionService skuFullReductionService;
+
+    /**
+     * 保存 sku的优惠信息
+     */
+    @PostMapping("/saveInfo")
+    public R saveInfo(@RequestBody SkuReductionTo skuReductionTo){
+        skuFullReductionService.saveSkuReduction(skuReductionTo);
+
+        return R.ok();
+    }
 
     /**
      * 列表

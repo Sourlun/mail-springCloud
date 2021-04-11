@@ -2,8 +2,10 @@ package com.sour.mall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sour.mall.common.utils.PageUtils;
+import com.sour.mall.product.entity.BrandEntity;
 import com.sour.mall.product.entity.CategoryBrandRelationEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,5 +42,13 @@ public interface ICategoryBrandRelationService extends IService<CategoryBrandRel
      * @date 2021/3/28 16:52
      **/
     void updateCategory(Long catId, String name);
+
+    /**
+     * 查询指定分类里面的品牌信息
+     *
+     * @author xgl
+     * @date 2021/4/4 17:04
+     **/
+    List<BrandEntity> getBrandsByCatId(Long catId);
 }
 

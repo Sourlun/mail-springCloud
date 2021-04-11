@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.sour.mall.product.entity.BrandEntity;
 import com.sour.mall.product.entity.CategoryEntity;
+import com.sour.mall.product.vo.BrandVo;
+import com.sun.deploy.ui.DialogTemplate;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +46,26 @@ public class CategoryBrandRelationController {
 
         List<CategoryEntity> datas = categoryBrandRelationService.list(wrapper);
         return R.ok().put("data", datas);
+    }
+
+
+    /**
+     * 获取品牌列表
+     *
+     * @author xgl
+     * @date 2021/4/4 17:02
+     **/
+    @GetMapping("/brands/list")
+    public R relationBrandsList(@RequestParam(value = "catId", required = true) Long catId) {
+        List<BrandEntity> brandEntities = categoryBrandRelationService.getBrandsByCatId(catId);
+        // 转成vo
+        List<BrandVo> brandVos = brandEntities.stream().map(item -> {
+            BrandVo vo = new BrandVo();
+            vo.setBrandId(item.getBrandId());
+            vo.setBrandName(item.getName());
+            return vo;
+        }).collect(Collectors.toList());
+        return R.ok().put("data", brandVos);
     }
 
     /**
