@@ -1,5 +1,6 @@
 package com.sour.mall.ware.service.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -18,6 +19,15 @@ public class WareSkuServiceImpl extends ServiceImpl<IWareSkuDao, WareSkuEntity> 
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        QueryWrapper<WareSkuEntity> wrapper = new QueryWrapper<>();
+        String skuId = (String) params.get("skuId");
+        if (StringUtils.isNotBlank(skuId)) {
+            wrapper.eq("sku_id", skuId);
+        }
+        String wareId = (String) params.get("wareId");
+        if (StringUtils.isNotBlank(skuId)) {
+            wrapper.eq("ware_id", wareId);
+        }
         IPage<WareSkuEntity> page = this.page(
                 new Query<WareSkuEntity>().getPage(params),
                 new QueryWrapper<WareSkuEntity>()
