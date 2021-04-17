@@ -24,5 +24,13 @@ public interface ISkuInfoService extends IService<SkuInfoEntity> {
      * @date 2021/4/5 13:23
      **/
     void saveSkuInfo(SkuInfoEntity skuInfoEntity);
+
+    /**
+     * sku列表
+     *
+     * @author xgl
+     * @date 2021/4/17 17:41
+     **/
+    PageUtils queryPageByCondition(Map<String, Object> params);
 }
 
