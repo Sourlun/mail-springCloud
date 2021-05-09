@@ -16,7 +16,12 @@ public enum BizCodeEnume {
     /**
      * 参数格式校验失败
      */
-    VAILD_EXCEPTION(10001, "参数格式校验失败");
+    VAILD_EXCEPTION(10001, "参数格式校验失败"),
+
+    /**
+     * 商品上架异常
+     */
+    PRODUCT_UP__EXCEPTION(11000, "商品上架异常");
 
     /**
      *  错误码
