@@ -2,6 +2,7 @@ package com.sour.mall.product.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -31,6 +32,16 @@ public class ProductAttrValueServiceImpl extends ServiceImpl<IProductAttrValueDa
     @Override
     public void saveProductAttr(List<ProductAttrValueEntity> productAttrValueEntities) {
         this.saveBatch(productAttrValueEntities);
+    }
+
+    @Override
+    public List<ProductAttrValueEntity> baseAttrListForSpu(Long spuId) {
+        QueryWrapper<ProductAttrValueEntity> wrapper = new QueryWrapper<ProductAttrValueEntity>().eq("spu_id", spuId);
+        List<ProductAttrValueEntity> list = list(wrapper);
+        if ( null == list ) {
+            return new ArrayList<>();
+        }
+        return list;
     }
 
 }

@@ -13,5 +13,13 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ISpuInfoDao extends BaseMapper<SpuInfoEntity> {
-	
+
+    /**
+     * 修改spu状态
+     *
+     * @author xgl
+     * @date 2021/5/9 19:57
+     **/
+    void updateSpuStatus(Long spuId, int code);
+
 }

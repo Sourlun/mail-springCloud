@@ -42,5 +42,13 @@ public interface ISpuInfoService extends IService<SpuInfoEntity> {
      * @date 2021/4/11 17:58
      **/
     PageUtils queryPageByCondition(Map<String, Object> params);
+
+    /**
+     * 商品上架
+     *
+     * @author xgl
+     * @date 2021/5/9 11:03
+     **/
+    void up(Long spuId);
 }
 

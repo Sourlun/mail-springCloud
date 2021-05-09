@@ -14,7 +14,7 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://192.168.0.106:3306/mall_pms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.0.103:3306/mall_pms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.jdbc.Driver
   application:
     name: mall-product  # 注册中心服务名称
