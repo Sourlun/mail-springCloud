@@ -1,8 +1,10 @@
 package com.sour.mall.ware.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.sour.mall.common.to.SkuHasStockTo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +31,20 @@ import com.sour.mall.common.utils.R;
 public class WareSkuController {
     @Autowired
     private IWareSkuService wareSkuService;
+
+    /**
+     * 查询sku是否有库存
+     *
+     * @author xgl
+     * @date 2021/5/9 17:34
+     **/
+    @RequestMapping("/sasStock")
+    public R<List<SkuHasStockTo>> getSkusHasStock(@RequestBody List<Long> skuIds){
+        List<SkuHasStockTo> skuHasStockVos = wareSkuService.getSkuHasStock(skuIds);
+        R ok = R.ok();
+        ok.setData(skuHasStockVos);
+        return ok;
+    }
 
     /**
      * 列表
